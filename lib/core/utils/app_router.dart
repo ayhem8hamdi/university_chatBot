@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:university_chatbot/features/on_boarding_screens/presentation/view/onboarding_view.dart';
 import 'package:university_chatbot/features/splash/views/splash_view.dart';
 
 abstract class AppRouter {
@@ -12,6 +13,11 @@ abstract class AppRouter {
         name: splashView,
         page: () => const SplashView(),
         transition: Transition.leftToRight,
+      ),
+      GetPage(
+        name: onBoarding,
+        page: () => const OnboardingView(),
+        transition: Transition.circularReveal,
       ),
     ];
   }
