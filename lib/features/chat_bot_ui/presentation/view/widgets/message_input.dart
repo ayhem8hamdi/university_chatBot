@@ -1,14 +1,18 @@
+// message_input.dart
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:university_chatbot/core/utils/app_colors.dart';
 import 'package:university_chatbot/core/utils/app_styles.dart';
+import 'package:university_chatbot/features/chat_bot_ui/view_model/controller/chatbot_controller.dart';
 
 class MessageInput extends StatelessWidget {
-  final TextEditingController controller;
-
   const MessageInput({super.key, required this.controller});
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
+    final chatbotController = Get.find<ChatbotController>();
+
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Row(
@@ -33,10 +37,7 @@ class MessageInput extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           FloatingActionButton(
-            onPressed: () {
-              // Handle send message logic
-              controller.clear();
-            },
+            onPressed: chatbotController.sendMessage,
             backgroundColor: AppColors.primaryColor,
             child: const Icon(Icons.send, color: Colors.white),
           ),
