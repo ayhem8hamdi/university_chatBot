@@ -1,4 +1,3 @@
-// message_input.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_chatbot/core/utils/app_colors.dart';
@@ -17,6 +16,7 @@ class MessageInput extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Row(
         children: [
+          // Zone de texte pour l'input
           Expanded(
             child: TextField(
               controller: controller,
@@ -36,8 +36,12 @@ class MessageInput extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
+
+          // Bouton d'envoi
           FloatingActionButton(
-            onPressed: chatbotController.sendMessage,
+            onPressed: () {
+              chatbotController.sendMessage(); // Envoie du message
+            },
             backgroundColor: AppColors.primaryColor,
             child: const Icon(Icons.send, color: Colors.white),
           ),

@@ -9,6 +9,7 @@ import 'package:university_chatbot/features/chat_bot_ui/view_model/controller/ch
 class ChatbotUi extends StatelessWidget {
   ChatbotUi({super.key});
 
+  // Obtenez le contrôleur ChatbotController avec GetX
   final ChatbotController controller = Get.find();
 
   @override
@@ -25,7 +26,10 @@ class ChatbotUi extends StatelessWidget {
       ),
       body: Column(
         children: [
+          // Afficher les messages du chatbot
           const Expanded(child: ChatMessages()),
+
+          // MessageInput avec le contrôleur
           MessageInput(controller: controller.inputController),
         ],
       ),
