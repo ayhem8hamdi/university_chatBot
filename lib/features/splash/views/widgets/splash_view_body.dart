@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gap/gap.dart';
 import 'package:university_chatbot/core/utils/app_router.dart';
 import 'package:university_chatbot/features/splash/views/widgets/image_fade_transition.dart';
-import 'package:university_chatbot/features/splash/views/widgets/text_fade_transition.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -37,8 +35,6 @@ class _SplashViewBodyState extends State<SplashViewBody>
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         LogoFadeTransition(fadeAnimation: fadeAnimation),
-        const Gap(12),
-        TextFadeTransition(fadeAnimation: fadeAnimation),
       ],
     );
   }

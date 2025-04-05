@@ -1,4 +1,5 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_chatbot/core/utils/app_colors.dart';
@@ -7,6 +8,7 @@ import 'package:university_chatbot/core/utils/constants.dart';
 import 'package:university_chatbot/features/on_boarding_screens/controllers/onboarding_controller.dart';
 
 void main() {
+  Get.put(Dio());
   Get.put(OnboardingController());
   runApp(
     DevicePreview(
