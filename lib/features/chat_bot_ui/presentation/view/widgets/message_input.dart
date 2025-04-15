@@ -12,39 +12,97 @@ class MessageInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final chatbotController = Get.find<ChatbotController>();
 
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            offset: const Offset(0, -1),
+            blurRadius: 3,
+          ),
+        ],
+      ),
+      // Remove bottom padding to avoid white space
+      padding: EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 12,
+        // Add padding only if keyboard is not visible
+        bottom: MediaQuery.of(context).viewInsets.bottom > 0
+            ? 12
+            : MediaQuery.of(context).padding.bottom + 12,
+      ),
       child: Row(
         children: [
-          // Zone de texte pour l'input
+          // Text input field
           Expanded(
-            child: TextField(
+            child: TextFormField(
               controller: controller,
               style:
                   AppStyles.style16Regular(context, color: AppColors.textColor),
+              textCapitalization: TextCapitalization.sentences,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.send,
+              onFieldSubmitted: (_) {
+                if (!chatbotController.isLoading.value) {
+                  chatbotController.sendMessage();
+                }
+              },
               decoration: InputDecoration(
+                isDense: true,
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey[100],
                 hintText: "Type a message...",
-                hintStyle: AppStyles.style16Regular(context,
-                    color: AppColors.gray3Color),
+                hintStyle: AppStyles.style16Regular(
+                  context,
+                  color: AppColors.gray3Color,
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(color: AppColors.gray2Color),
+                  borderRadius: BorderRadius.circular(24),
+                  borderSide: BorderSide.none,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24),
+                  borderSide:
+                      BorderSide(color: AppColors.primaryColor, width: 1),
                 ),
               ),
+              // Disable the input while loading
+              enabled: !chatbotController.isLoading.value,
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 12),
 
-          // Bouton d'envoi
-          FloatingActionButton(
-            onPressed: () {
-              chatbotController.sendMessage(); // Envoie du message
-            },
-            backgroundColor: AppColors.primaryColor,
-            child: const Icon(Icons.send, color: Colors.white),
-          ),
+          // Send button with disabled state
+          Obx(() => Material(
+                color: chatbotController.isLoading.value
+                    ? AppColors.primaryColor.withOpacity(0.5) // Disabled color
+                    : AppColors.primaryColor,
+                borderRadius: BorderRadius.circular(50),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(50),
+                  onTap: chatbotController.isLoading.value
+                      ? null // Disable tap when loading
+                      : () => chatbotController.sendMessage(),
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    child: const Icon(
+                      Icons.send,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ),
+                ),
+              )),
         ],
       ),
     );

@@ -2,18 +2,20 @@ import 'package:dio/dio.dart';
 
 class ApiService {
   final Dio dio;
-  final String baseUrl = 'APIURL';
+  final String baseUrl = 'https://8621-197-26-235-235.ngrok-free.app/';
 
   ApiService(this.dio);
 
-  Future<Map<String, dynamic>> get({
+  Future<Map<String, dynamic>> post({
     required String endPoint,
-    required String input,
+    required Map<String, dynamic> data,
   }) async {
-    final response = await dio.get(
+    final response = await dio.post(
       '$baseUrl$endPoint',
-      queryParameters: {'input': input},
+      data: data,
+      options: Options(headers: {'Content-Type': 'application/json'}),
     );
+    print(response.data);
     return response.data;
   }
 }

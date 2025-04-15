@@ -1,13 +1,11 @@
 class ChatbotModel {
-  final String responseMessage;
+  final String generatedText;
 
-  ChatbotModel({
-    required this.responseMessage,
-  });
+  ChatbotModel({required this.generatedText});
 
   factory ChatbotModel.fromJson(Map<String, dynamic> json) {
     return ChatbotModel(
-      responseMessage: json['responseMessage'] ?? '',
+      generatedText: json['generated_text'] ?? '',
     );
   }
 }
